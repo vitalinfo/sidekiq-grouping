@@ -16,6 +16,11 @@ module Sidekiq
     autoload :Middleware, "sidekiq/grouping/middleware"
     autoload :Flusher, "sidekiq/grouping/flusher"
     autoload :FlusherObserver, "sidekiq/grouping/flusher_observer"
+    autoload :SingletonBase, "sidekiq/grouping/singleton_base"
+    autoload :SingletonWorker, "sidekiq/grouping/singleton_worker"
+    autoload :SingletonWorkerConcern, "sidekiq/grouping/singleton_worker_concern"
+    autoload :SingletonFlusher, "sidekiq/grouping/singleton_flusher"
+    autoload :SingletonFlusherConcern, "sidekiq/grouping/singleton_flusher_concern"
 
     class << self
       attr_writer :logger
