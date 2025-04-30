@@ -14,10 +14,11 @@ module Sidekiq
               locals: { view_path: VIEWS }
         end
 
-        app.post "/grouping/:name/delete" do
+        app.delete "/grouping/:name64" do
+          name = Base64.decode64(params["name64"])
           worker_class, queue =
             Sidekiq::Grouping::Batch.extract_worker_klass_and_queue(
-              params["name"]
+              name
             )
           batch = Sidekiq::Grouping::Batch.new(worker_class, queue)
           batch.delete
