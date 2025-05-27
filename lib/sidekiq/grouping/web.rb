@@ -29,5 +29,18 @@ module Sidekiq
   end
 end
 
-Sidekiq::Web.register(Sidekiq::Grouping::Web)
-Sidekiq::Web.tabs["Grouping"] = "grouping"
+
+args = {
+  name: "grouping",
+  tab: ["Grouping"],
+  index: ["grouping"],
+  root_dir: File.dirname(__FILE__)
+}
+
+if Gem::Version.new(Sidekiq::VERSION) >= Gem::Version.new('8.0.0')
+  Sidekiq::Web.configure do |cfg|
+    cfg.register(Sidekiq::Grouping::Web, **args)
+  end
+else
+  Sidekiq::Web.register(Sidekiq::Grouping::Web, **args)
+end
