@@ -29,7 +29,6 @@ module Sidekiq
   end
 end
 
-
 args = {
   name: "grouping",
   tab: ["Grouping"],
@@ -37,7 +36,7 @@ args = {
   root_dir: File.dirname(__FILE__)
 }
 
-if Gem::Version.new(Sidekiq::VERSION) >= Gem::Version.new('8.0.0')
+if Gem::Version.new(Sidekiq::VERSION) >= Gem::Version.new("8.0.0")
   Sidekiq::Web.configure do |cfg|
     cfg.register(Sidekiq::Grouping::Web, **args)
   end
