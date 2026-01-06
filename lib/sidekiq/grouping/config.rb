@@ -34,7 +34,7 @@ module Sidekiq
               elsif Sidekiq.respond_to?(:options) # Sidekiq <= 5.x
                 Sidekiq.options[:grouping] || Sidekiq.options["grouping"] || {}
               elsif Sidekiq.server?  # Sidekiq >= 7.x
-                Sidekiq::CLI.instance.config[:grouping]
+                Sidekiq::CLI.instance.config[:grouping] || {}
               else
                 Sidekiq.default_configuration[:grouping] || {}
               end
