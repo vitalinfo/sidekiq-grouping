@@ -2,7 +2,7 @@
 
 require "active_support"
 require "active_support/core_ext/string"
-require "active_support/configurable"
+require "active_support/ordered_options"
 require "active_support/core_ext/numeric/time"
 require "sidekiq"
 require "sidekiq/grouping/version"
