@@ -3,6 +3,8 @@
 module Sidekiq
   module Grouping
     class Batch
+      include Sidekiq::Grouping::SingletonFlusherConcern
+
       def initialize(worker_class, queue, _redis_pool = nil)
         @worker_class = worker_class
         @queue = queue
@@ -50,6 +52,8 @@ module Sidekiq
       end
 
       def flush
+        lock_singleton_flusher
+
         chunk = pluck
         return unless chunk
 
@@ -74,7 +78,7 @@ module Sidekiq
       end
 
       def could_flush?
-        could_flush_on_overflow? || could_flush_on_time?
+        could_flush_on_overflow? || could_flush_on_time? || could_flush_on_singleton_worker?
       end
 
       def last_execution_time
